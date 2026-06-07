@@ -1,0 +1,136 @@
+const characterData = [
+  {
+    id: "zibai",
+    name: "Zibai",
+    element: "Geo",
+    weapon: "Sword",
+    region: "Liyue",
+    rarity: 5,
+    role: "DPS",
+    description:
+      "A mysterious Geo character connected to Liyue legends and the Adepti.",
+    image: "/images/zibai.png",
+  },
+  {
+    id: "furina",
+    name: "Furina",
+    element: "Hydro",
+    weapon: "Sword",
+    region: "Fontaine",
+    rarity: 5,
+    role: "Support",
+    description:
+      "A dramatic and expressive Hydro character from Fontaine with strong story importance.",
+    image: "/images/furina.png",
+  },
+  {
+    id: "xiao",
+    name: "Xiao",
+    element: "Anemo",
+    weapon: "Polearm",
+    region: "Liyue",
+    rarity: 5,
+    role: "DPS",
+    description:
+      "A serious and powerful Yaksha who protects Liyue from dark forces.",
+    image: "/images/xiao.png",
+  },
+  {
+    id: "zhongli",
+    name: "Zhongli",
+    element: "Geo",
+    weapon: "Polearm",
+    region: "Liyue",
+    rarity: 5,
+    role: "Shield Support",
+    description:
+      "A calm and knowledgeable Geo character known for his strong shields and wisdom.",
+    image: "/images/zhongli.png",
+  },
+  {
+    id: "skirk",
+    name: "Skirk",
+    element: "Cryo",
+    weapon: "Sword",
+    region: "Unknown",
+    rarity: 5,
+    role: "DPS",
+    description:
+      "A mysterious warrior connected to the Abyss and known as Childe's former master.",
+    image: "/images/skirk.png",
+  },
+  {
+    id: "columbina",
+    name: "Columbina",
+    element: "Hydro",
+    weapon: "Catalyst",
+    region: "Snezhnaya",
+    rarity: 5,
+    role: "Support",
+    description:
+      "Also known as Damselette, Columbina is one of the Fatui Harbingers.",
+    image: "/images/columbina.png",
+  },
+  {
+    id: "arlecchino",
+    name: "Arlecchino",
+    element: "Pyro",
+    weapon: "Polearm",
+    region: "Snezhnaya",
+    rarity: 5,
+    role: "DPS",
+    description:
+      "A powerful Pyro character known as The Knave and one of the Fatui Harbingers.",
+    image: "/images/arlecchino.png",
+  },
+  {
+    id: "nahida",
+    name: "Nahida",
+    element: "Dendro",
+    weapon: "Catalyst",
+    region: "Sumeru",
+    rarity: 5,
+    role: "Support",
+    description:
+      "The gentle and wise Dendro Archon of Sumeru who values dreams and knowledge.",
+    image: "/images/nahida.png",
+  },
+  {
+    id: "neuvillette",
+    name: "Neuvillette",
+    element: "Hydro",
+    weapon: "Catalyst",
+    region: "Fontaine",
+    rarity: 5,
+    role: "DPS",
+    description:
+      "The Chief Justice of Fontaine, known for his elegance, authority, and powerful Hydro abilities.",
+    image: "/images/neuvillette.png",
+  },
+  {
+    id: "yaoyao",
+    name: "Yaoyao",
+    element: "Dendro",
+    weapon: "Polearm",
+    region: "Liyue",
+    rarity: 4,
+    role: "Healer",
+    description:
+      "A kind Dendro healer from Liyue who is often seen with her companion Yuegui.",
+    image: "/images/yaoyao.png",
+  },
+  {
+    id: "qiqi",
+    name: "Qiqi",
+    element: "Cryo",
+    weapon: "Sword",
+    region: "Liyue",
+    rarity: 5,
+    role: "Healer",
+    description:
+      "A quiet Cryo healer from Bubu Pharmacy who has trouble remembering things.",
+    image: "/images/qiqi.png",
+  },
+];
+
+export default characterData;
