@@ -1,4 +1,5 @@
 import express from "express";
+import "./config/dotenv.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import charactersRouter from "./routes/characters.js";
@@ -13,10 +14,14 @@ app.use(express.json());
 
 app.use(express.static(path.resolve(__dirname, "public")));
 
-app.use("/characters", charactersRouter);
+app.use("/api/characters", charactersRouter);
 
 app.get("/", (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, "public/index.html"));
+});
+
+app.get("/characters/:id", (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, "public/character.html"));
 });
 
 app.use((req, res) => {

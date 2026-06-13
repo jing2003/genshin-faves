@@ -5,12 +5,9 @@ const characterId = pathParts[pathParts.length - 1];
 
 const getCharacter = async () => {
   try {
-    const response = await fetch("/characters");
-    const characters = await response.json();
+    const response = await fetch(`/api/characters/${characterId}`);
 
-    const character = characters.find((item) => item.id === characterId);
-
-    if (!character) {
+    if (!response.ok) {
       characterDetail.innerHTML = `
         <h1>Character Not Found</h1>
         <p>Sorry, this character does not exist in the list.</p>
@@ -18,6 +15,8 @@ const getCharacter = async () => {
       `;
       return;
     }
+
+    const character = await response.json();
 
     characterDetail.innerHTML = `
       <article class="detail-card">

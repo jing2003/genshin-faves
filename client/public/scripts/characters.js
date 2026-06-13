@@ -1,11 +1,6 @@
-const renderCharacters = async () => {
-  const response = await fetch("/characters");
-  const data = await response.json();
+const mainContent = document.getElementById("main-content");
 
-  const mainContent = document.getElementById("main-content");
-
-  mainContent.innerHTML = "";
-
+const createPageTitle = () => {
   const pageTitle = document.createElement("section");
   pageTitle.className = "page-title";
 
@@ -18,13 +13,98 @@ const renderCharacters = async () => {
 
   pageTitle.appendChild(title);
   pageTitle.appendChild(subtitle);
-  mainContent.appendChild(pageTitle);
 
-  const cardContainer = document.createElement("section");
-  cardContainer.className = "card-container";
+  return pageTitle;
+};
 
-  if (data && data.length > 0) {
-    data.map((character) => {
+const createSearchForm = () => {
+  const searchSection = document.createElement("section");
+  searchSection.className = "search-section";
+
+  const searchForm = document.createElement("form");
+  searchForm.id = "search-form";
+  searchForm.className = "search-form";
+
+  const searchTitle = document.createElement("h4");
+  searchTitle.textContent = "Filter Characters";
+  searchTitle.className = "search-title";
+
+  const searchControls = document.createElement("div");
+  searchControls.className = "search-controls";
+
+  const attributeSelect = document.createElement("select");
+  attributeSelect.id = "search-attribute";
+  attributeSelect.className = "search-select";
+
+  const attributes = ["name", "element", "region", "role"];
+
+  attributes.forEach((attribute) => {
+    const option = document.createElement("option");
+    option.value = attribute;
+    option.textContent = attribute.charAt(0).toUpperCase() + attribute.slice(1);
+    attributeSelect.appendChild(option);
+  });
+
+  const searchInput = document.createElement("input");
+  searchInput.id = "search-value";
+  searchInput.className = "search-input";
+  searchInput.type = "text";
+  searchInput.placeholder = "Try Geo, Liyue, DPS...";
+
+  const buttonGroup = document.createElement("div");
+  buttonGroup.className = "search-buttons";
+
+  const searchButton = document.createElement("button");
+  searchButton.type = "submit";
+  searchButton.className = "search-button";
+  searchButton.textContent = "Search";
+
+  const resetButton = document.createElement("button");
+  resetButton.type = "button";
+  resetButton.className = "reset-button";
+  resetButton.textContent = "Show All";
+
+  buttonGroup.appendChild(searchButton);
+  buttonGroup.appendChild(resetButton);
+
+  searchControls.appendChild(attributeSelect);
+  searchControls.appendChild(searchInput);
+  searchControls.appendChild(buttonGroup);
+
+  searchForm.appendChild(searchTitle);
+  searchForm.appendChild(searchControls);
+
+  searchForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const attribute = attributeSelect.value;
+    const value = searchInput.value.trim();
+
+    if (!value) {
+      await fetchCharacters();
+      return;
+    }
+
+    await fetchCharacters(attribute, value);
+  });
+
+  resetButton.addEventListener("click", async () => {
+    searchInput.value = "";
+    await fetchCharacters();
+  });
+
+  searchSection.appendChild(searchForm);
+
+  return searchSection;
+};
+
+const renderCharacterCards = (characters) => {
+  const cardContainer = document.getElementById("card-container");
+
+  cardContainer.innerHTML = "";
+
+  if (characters && characters.length > 0) {
+    characters.forEach((character) => {
       const card = document.createElement("div");
       card.className = "card";
 
@@ -65,11 +145,42 @@ const renderCharacters = async () => {
     });
   } else {
     const noCharacters = document.createElement("h2");
-    noCharacters.textContent = "No Characters Available 😞";
+    noCharacters.textContent = "No Characters Found 😞";
     cardContainer.appendChild(noCharacters);
   }
-
-  mainContent.appendChild(cardContainer);
 };
 
-renderCharacters();
+const fetchCharacters = async (attribute = "", value = "") => {
+  let url = "/api/characters";
+
+  if (attribute && value) {
+    const params = new URLSearchParams({
+      attribute,
+      value,
+    });
+
+    url = `/api/characters?${params.toString()}`;
+  }
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  renderCharacterCards(data);
+};
+
+const renderPage = async () => {
+  mainContent.innerHTML = "";
+
+  mainContent.appendChild(createPageTitle());
+  mainContent.appendChild(createSearchForm());
+
+  const cardContainer = document.createElement("section");
+  cardContainer.id = "card-container";
+  cardContainer.className = "card-container";
+
+  mainContent.appendChild(cardContainer);
+
+  await fetchCharacters();
+};
+
+renderPage();
